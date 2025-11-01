@@ -115,9 +115,9 @@ vim.o.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
-end)
+-- vim.schedule(function()
+--   vim.opt.clipboard = 'unnamedplus'
+-- end)
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -250,8 +250,12 @@ rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
-  'tomasiser/vim-code-dark',
-  'ribru17/bamboo.nvim',
+  -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  -- 'phha/zenburn.nvim', -- not great
+  -- 'tomasiser/vim-code-dark',
+  -- 'ribru17/bamboo.nvim',
+  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -712,6 +716,8 @@ require('lazy').setup({
         clangd = {},
         gopls = {},
         pyright = {},
+        kotlin_lsp = {},
+        phpactor = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -779,46 +785,46 @@ require('lazy').setup({
     end,
   },
 
---  { -- Autoformat
---    'stevearc/conform.nvim',
---    event = { 'BufWritePre' },
---    cmd = { 'ConformInfo' },
---    keys = {
---      {
---        '<leader>f',
---        function()
---          require('conform').format { async = true, lsp_format = 'fallback' }
---        end,
---        mode = '',
---        desc = '[F]ormat buffer',
---      },
---    },
---    opts = {
---      notify_on_error = false,
---      format_on_save = function(bufnr)
---        -- Disable "format_on_save lsp_fallback" for languages that don't
---        -- have a well standardized coding style. You can add additional
---        -- languages here or re-enable it for the disabled ones.
---        local disable_filetypes = { c = true, cpp = true }
---        if disable_filetypes[vim.bo[bufnr].filetype] then
- --         return nil
---        else
---          return {
---            timeout_ms = 500,
---            lsp_format = 'fallback',
---          }
---        end
---      end,
---      formatters_by_ft = {
---        lua = { 'stylua' },
---        -- Conform can also run multiple formatters sequentially
---        -- python = { "isort", "black" },
---        --
---        -- You can use 'stop_after_first' to run the first available formatter from the list
---        -- javascript = { "prettierd", "prettier", stop_after_first = true },
---      },
---    },
---  },
+  -- { -- Autoformat
+  --   'stevearc/conform.nvim',
+  --   event = { 'BufWritePre' },
+  --   cmd = { 'ConformInfo' },
+  --   keys = {
+  --     {
+  --       '<leader>f',
+  --       function()
+  --         require('conform').format { async = true, lsp_format = 'fallback' }
+  --       end,
+  --       mode = '',
+  --       desc = '[F]ormat buffer',
+  --     },
+  --   },
+  --   opts = {
+  --     notify_on_error = false,
+  --     format_on_save = function(bufnr)
+  --       -- Disable "format_on_save lsp_fallback" for languages that don't
+  --       -- have a well standardized coding style. You can add additional
+  --       -- languages here or re-enable it for the disabled ones.
+  --       local disable_filetypes = { c = true, cpp = true }
+  --       if disable_filetypes[vim.bo[bufnr].filetype] then
+  --         return nil
+  --       else
+  --         return {
+  --           timeout_ms = 500,
+  --           lsp_format = 'fallback',
+  --         }
+  --       end
+  --     end,
+  --     formatters_by_ft = {
+  --       lua = { 'stylua' },
+  --       -- Conform can also run multiple formatters sequentially
+  --       -- python = { "isort", "black" },
+  --       --
+  --       -- You can use 'stop_after_first' to run the first available formatter from the list
+  --       -- javascript = { "prettierd", "prettier", stop_after_first = true },
+  --     },
+  --   },
+  -- },
 
   { -- Autocompletion
     'saghen/blink.cmp',
@@ -1062,11 +1068,5 @@ require('lazy').setup({
   },
 })
 
-require('lspconfig').clangd.setup {
-  cmd = { 'clangd', '--clang-tidy' },
-}
-require('lspconfig').clangd.setup {
-  cmd = { '/home/sykop5am/.espressif/tools/esp-clang/16.0.1-fe4f10a809/esp-clang/bin/clangd', '--clang-tidy' },
-}
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
