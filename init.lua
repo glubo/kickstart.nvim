@@ -1068,5 +1068,9 @@ require('lazy').setup({
   },
 })
 
+if vim.env.SSH_TTY or vim.env.SSH_CONNECTION or vim.env.SSH_CLIENT then
+  vim.opt.mouse = ""
+end
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
