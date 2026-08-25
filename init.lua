@@ -831,6 +831,9 @@ require('lazy').setup({
   --     },
   --   },
   -- },
+  {
+    'norcalli/nvim-colorizer.lua'
+  },
 
   { -- Autocompletion
     'saghen/blink.cmp',
